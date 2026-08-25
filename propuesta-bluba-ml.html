@@ -562,81 +562,98 @@
         <div>
           <h3>Registro de la familia</h3>
           <form id="crisis-form">
+            <div class="field">
+              <label for="usuario_id">ID de familia / niño-niña (para la base de datos)</label>
+              <select id="usuario_id" name="usuario_id">
+                <option value="familia_demo_01" selected>familia_demo_01</option>
+                <option value="familia_demo_02">familia_demo_02</option>
+                <option value="familia_demo_03">familia_demo_03</option>
+              </select>
+            </div>
+
             <div class="field-row">
               <div class="field">
-                <label for="sueno">Calidad del sueño anoche</label>
-                <select id="sueno" name="sueno">
-                  <option value="sin datos">Sin datos</option>
-                  <option value="buena" selected>Buena</option>
-                  <option value="regular">Regular</option>
-                  <option value="mala">Mala / muy interrumpida</option>
-                </select>
+                <label for="horas_sueno">Horas de sueño anoche</label>
+                <input type="number" id="horas_sueno" name="horas_sueno" min="0" max="14" step="0.5" placeholder="ej. 6.5">
               </div>
               <div class="field">
-                <label for="animo">Estado de ánimo hoy</label>
-                <select id="animo" name="animo">
-                  <option value="sin datos">Sin datos</option>
-                  <option value="tranquilo" selected>Tranquilo</option>
-                  <option value="irritable">Irritable</option>
-                  <option value="ansioso">Ansioso / inquieto</option>
-                  <option value="eufórico">Eufórico / sobreexcitado</option>
+                <label for="calidad_sueno">Calidad del sueño anoche</label>
+                <select id="calidad_sueno" name="calidad_sueno">
+                  <option value="">Sin datos</option>
+                  <option value="3" selected>Buena</option>
+                  <option value="2">Regular</option>
+                  <option value="1">Mala / muy interrumpida</option>
                 </select>
               </div>
             </div>
 
             <div class="field-row">
               <div class="field">
-                <label for="alimentacion">Alimentación hoy</label>
-                <select id="alimentacion" name="alimentacion">
-                  <option value="sin datos">Sin datos</option>
-                  <option value="normal" selected>Normal</option>
-                  <option value="poco apetito">Poco apetito</option>
-                  <option value="rechazo total">Rechazo total</option>
+                <label for="estado_basal">Estado de ánimo hoy</label>
+                <select id="estado_basal" name="estado_basal">
+                  <option value="">Sin datos</option>
+                  <option value="3" selected>Tranquilo</option>
+                  <option value="2">Neutro</option>
+                  <option value="1">Irritable</option>
                 </select>
               </div>
               <div class="field">
-                <label for="gi">Malestar gastrointestinal</label>
-                <select id="gi" name="gi">
-                  <option value="sin datos">Sin datos</option>
-                  <option value="ninguno" selected>Ninguno</option>
-                  <option value="leve">Leve</option>
-                  <option value="moderado">Moderado</option>
-                  <option value="intenso">Intenso</option>
+                <label for="nivel_apoyo">Nivel de apoyo disponible hoy</label>
+                <select id="nivel_apoyo" name="nivel_apoyo">
+                  <option value="">Sin datos</option>
+                  <option value="1" selected>Alto</option>
+                  <option value="2">Medio</option>
+                  <option value="3">Bajo</option>
                 </select>
               </div>
             </div>
 
             <div class="field-row">
               <div class="field">
-                <label for="rutina">Cambios de rutina hoy</label>
-                <select id="rutina" name="rutina">
-                  <option value="sin datos">Sin datos</option>
-                  <option value="ninguno" selected>Ninguno</option>
-                  <option value="cambio menor">Cambio menor esperado</option>
-                  <option value="cambio mayor imprevisto">Cambio mayor imprevisto</option>
+                <label for="salud_gi">Malestar gastrointestinal</label>
+                <select id="salud_gi" name="salud_gi">
+                  <option value="">Sin datos</option>
+                  <option value="1" selected>Normal</option>
+                  <option value="2">Molestia leve</option>
+                  <option value="3">Severo</option>
                 </select>
               </div>
               <div class="field">
-                <label for="social">Interacción social</label>
-                <select id="social" name="social">
-                  <option value="sin datos">Sin datos</option>
-                  <option value="positiva" selected>Positiva</option>
-                  <option value="neutra">Neutra</option>
-                  <option value="evitativa">Evitativa</option>
-                  <option value="conflictiva">Conflictiva</option>
+                <label for="cambio_rutina">Cambio de rutina hoy</label>
+                <select id="cambio_rutina" name="cambio_rutina">
+                  <option value="">Sin datos</option>
+                  <option value="0" selected>Ninguno</option>
+                  <option value="1">Leve</option>
+                  <option value="2">Drástico</option>
                 </select>
               </div>
             </div>
 
             <div class="field">
-              <label for="desregulacion">Señales de desregulación observadas</label>
-              <select id="desregulacion" name="desregulacion">
-                <option value="sin datos">Sin datos</option>
-                <option value="ninguna" selected>Ninguna</option>
-                <option value="leve">Leve (autoestimulación, tensión)</option>
-                <option value="moderada">Moderada (evitación, llanto)</option>
-                <option value="alta">Alta (episodio previo hoy)</option>
-              </select>
+              <label for="desregulaciones_previas">Desregulaciones en los últimos días (conteo)</label>
+              <input type="number" id="desregulaciones_previas" name="desregulaciones_previas" min="0" max="5" step="1" placeholder="ej. 0">
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="alimentacion">Alimentación hoy <span style="font-weight:400;color:var(--ink-soft);">(registrado, aún no usado por el modelo)</span></label>
+                <select id="alimentacion" name="alimentacion">
+                  <option value="">Sin datos</option>
+                  <option value="1" selected>Normal</option>
+                  <option value="2">Poco apetito</option>
+                  <option value="3">Rechazo total</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="interaccion_social">Interacción social <span style="font-weight:400;color:var(--ink-soft);">(registrado, aún no usado por el modelo)</span></label>
+                <select id="interaccion_social" name="interaccion_social">
+                  <option value="">Sin datos</option>
+                  <option value="1" selected>Positiva</option>
+                  <option value="2">Neutra</option>
+                  <option value="3">Evitativa</option>
+                  <option value="4">Conflictiva</option>
+                </select>
+              </div>
             </div>
 
             <div class="field">
@@ -646,9 +663,9 @@
 
             <button type="submit" class="btn-predict" id="predict-btn">
               <span class="spinner" aria-hidden="true"></span>
-              <span id="predict-btn-label">Generar predicción</span>
+              <span id="predict-btn-label">Guardar registro y predecir</span>
             </button>
-            <div class="demo-disclaimer">Demo funcional para la propuesta: el modelo productivo de Bluba se entrenaría con datos históricos reales; aquí una llamada a la API de Claude razona sobre el registro con el mismo esquema de salida.</div>
+            <div class="demo-disclaimer">Este registro se guarda como fila nueva en <code>base_bluba.csv</code> y la predicción la calcula un Random Forest con imputación MICE (ver <code>modelo.py</code>), entrenado sobre esa misma base de datos — requiere tener el backend Flask corriendo en <code>API_BASE_URL</code> (ver comentario en el HTML).</div>
           </form>
         </div>
 
@@ -867,6 +884,10 @@
 
 <script>
 (function(){
+  // Backend Flask local (ver /backend en el proyecto: app.py, modelo.py, seed_dataset.py).
+  // Cambia este valor si despliegas la API en otra URL.
+  const API_BASE_URL = 'http://localhost:5000';
+
   const form = document.getElementById('crisis-form');
   const btn = document.getElementById('predict-btn');
   const btnLabel = document.getElementById('predict-btn-label');
@@ -884,65 +905,39 @@
 
   const RISK_LABEL = { bajo: 'Riesgo bajo', medio: 'Riesgo medio', alto: 'Riesgo alto' };
 
-  function buildPrompt(data){
-    return `Actúa como el modelo predictivo de Bluba, un sistema que estima el riesgo de una crisis conductual en las próximas 24 horas para un niño o niña neurodivergente, a partir del micro-registro diario de su familia.
+  // Campos numéricos que el modelo consume; "" (sin datos) se envía como null
+  // y el backend lo imputa con MICE (ver modelo.py).
+  const CAMPOS_MODELO = ['horas_sueno','calidad_sueno','estado_basal','nivel_apoyo','salud_gi','cambio_rutina','desregulaciones_previas'];
+  const CAMPOS_EXTRA = ['alimentacion','interaccion_social'];
 
-Registro de hoy:
-- Calidad del sueño: ${data.sueno}
-- Estado de ánimo: ${data.animo}
-- Alimentación: ${data.alimentacion}
-- Malestar gastrointestinal: ${data.gi}
-- Cambios de rutina: ${data.rutina}
-- Interacción social: ${data.social}
-- Señales de desregulación: ${data.desregulacion}
-- Notas libres de la familia: ${data.notas || '(sin notas)'}
+  function buildPayload(formData){
+    const payload = { usuario_id: formData.get('usuario_id') || 'anonimo' };
 
-Instrucciones:
-- Estima una probabilidad de crisis en las próximas 24 horas (0-100) y un nivel de riesgo: "bajo", "medio" o "alto".
-- Estima un nivel de confianza (0-100) que baje cuando haya campos "sin datos", y sea alto cuando el registro esté completo.
-- Entrega entre 2 y 3 factores clave que expliquen la predicción, en lenguaje simple y cálido, sin jerga clínica.
-- Entrega entre 2 y 3 estrategias preventivas concretas y accionables para hoy, dirigidas a la familia.
-- Si faltan campos ("sin datos"), inclúyelo como advertencia breve en "completeness_note"; si el registro está completo, deja "completeness_note" como cadena vacía.
+    CAMPOS_MODELO.concat(CAMPOS_EXTRA).forEach(campo => {
+      const valor = formData.get(campo);
+      payload[campo] = (valor === '' || valor === null) ? null : Number(valor);
+    });
 
-Responde ÚNICAMENTE con un objeto JSON válido, sin texto adicional, sin explicación, sin bloques de código, con exactamente este esquema:
-{
-  "risk_level": "bajo" | "medio" | "alto",
-  "probability": number,
-  "confidence": number,
-  "factors": string[],
-  "actions": string[],
-  "completeness_note": string
-}`;
+    payload.notas = formData.get('notas') || '';
+    return payload;
   }
 
-  async function getPrediction(data){
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+  async function getPrediction(payload){
+    const response = await fetch(`${API_BASE_URL}/api/prediccion`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: buildPrompt(data) }]
-      })
+      body: JSON.stringify(payload)
     });
 
     if(!response.ok){
-      throw new Error('El servicio de predicción no respondió correctamente.');
+      throw new Error('El backend respondió con un error.');
     }
 
-    const payload = await response.json();
-    const text = (payload.content || [])
-      .map(block => block.text || '')
-      .filter(Boolean)
-      .join('\n');
-
-    const clean = text.replace(/```json/g, '').replace(/```/g, '').trim();
-    const parsed = JSON.parse(clean);
-
-    if(!parsed.risk_level || typeof parsed.probability !== 'number'){
-      throw new Error('La respuesta del modelo no tuvo el formato esperado.');
+    const result = await response.json();
+    if(!result.risk_level || typeof result.probability !== 'number'){
+      throw new Error('La respuesta del backend no tuvo el formato esperado.');
     }
-    return parsed;
+    return result;
   }
 
   function render(result){
@@ -985,23 +980,23 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin texto adicional, sin explic
     errorBox.classList.remove('visible');
     errorBox.textContent = '';
 
-    const data = Object.fromEntries(new FormData(form).entries());
+    const payload = buildPayload(new FormData(form));
 
     btn.disabled = true;
     btn.setAttribute('data-loading', 'true');
-    btnLabel.textContent = 'Calculando…';
+    btnLabel.textContent = 'Guardando y calculando…';
 
     try {
-      const result = await getPrediction(data);
+      const result = await getPrediction(payload);
       render(result);
     } catch (err) {
       console.error('Prediction error:', err);
-      errorBox.textContent = 'No fue posible generar la predicción en este momento. Intenta nuevamente en unos segundos.';
+      errorBox.textContent = 'No fue posible contactar al backend en ' + API_BASE_URL + '. Verifica que "python app.py" esté corriendo y que CORS esté habilitado.';
       errorBox.classList.add('visible');
     } finally {
       btn.disabled = false;
       btn.removeAttribute('data-loading');
-      btnLabel.textContent = 'Generar predicción';
+      btnLabel.textContent = 'Guardar registro y predecir';
     }
   });
 })();

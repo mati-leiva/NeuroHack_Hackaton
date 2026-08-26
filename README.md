@@ -6,7 +6,7 @@ proyecto.
 
 ## 1. La idea en una imagen
 
-![Computer](InfrastructuraREADME.pdf)
+![Infrastructura del proyecto](Infrastructura.jpg)
 
 ```
                               ┌─────────────────────────────┐

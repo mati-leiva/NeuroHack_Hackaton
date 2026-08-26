@@ -1,12 +1,8 @@
 # Propuesta Bluba — Anticipación de crisis conductual con ML
 
-Datatón FICA UFRO × Bluba SpA. Este documento explica **cada archivo
-presente en este repositorio** y cómo encaja en el esquema general del
-proyecto. Todo lo descrito aquí fue verificado corriendo el backend contra
-este mismo repo antes de escribirlo.
-
-(`backend/README.md` ya no duplica esta información — apunta aquí, para
-evitar que vuelvan a quedar dos documentos contradictorios como pasó antes.)
+Hackatón FICA UFRO × Bluba SpA. Este documento explica cada archivo
+presente en este repositorio y cómo encaja en el esquema general del
+proyecto. 
 
 ## 1. La idea en una imagen
 

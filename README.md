@@ -6,6 +6,8 @@ proyecto.
 
 ## 1. La idea en una imagen
 
+![Computer](InfrastructuraREADME.pdf)
+
 ```
                               ┌─────────────────────────────┐
                               │   propuesta-bluba-ml.html    │

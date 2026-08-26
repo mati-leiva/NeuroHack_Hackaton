@@ -8,94 +8,31 @@ proyecto.
 
 ![Infrastructura del proyecto](Infrastructura.jpg)
 
-```
-                              ┌─────────────────────────────┐
-                              │   propuesta-bluba-ml.html    │
-                              │        (front-end)           │
-                              └───┬──────────┬──────────┬────┘
-                                  │          │          │
-                       fetch HTTP │          │ fetch    │ Web Serial API
-                    (secciones    │          │ HTTP     │ (sección
-                  "Demo" y        │          │(sección  │ "Juguete en vivo")
-                  "Confirmar      │          │"Confirmar│
-                  resultado")     │          │resultado")│
-                                  ▼          ▼          ▼
-                        ┌──────────────────────┐   Arduino (USB o Bluetooth
-                        │  backend/app.py       │   pareado como puerto COM),
-                        │  (Flask, puerto 5000) │   firmware sketch_bluba_original.ino
-                        └──────────┬───────────┘   — lectura DIRECTA desde el
-                                   │                navegador, sin pasar por Flask
-        ┌──────────────┬──────────┼──────────────┬───────────────┐
-        ▼              ▼          ▼              ▼               ▼
- backend/modelo.py  personalizacion.py   detonantes.py     sensores.py
- (MICE + Random     (baseline +          (detonantes/       (umbrales del
- Forest)             shrinkage,           estrategias, CSV    juguete — ver
-        │             compartido)         del concurso +       estado en §4.7)
-        ▼                                 los agregados
- backend/base_bluba.csv                   desde el HTML)
- (la "base de datos", CSV)                      │
-        ▲                                       ▼
-        │ generado una vez por           backend/data/*.csv
- backend/seed_dataset.py                 (reales del concurso +
-        ▲                                 eventos_registrados.csv)
-        │
-   POST /api/confirmar
-   (la familia confirma el desenlace
-   real de un día ya registrado)
-```
-
-Hay **tres caminos** desde el HTML: la sección **"Demo"** predice y guarda
-el registro; la sección **"Confirmar resultado"** cierra el ciclo
-sintético→real (ver §4.6); y la sección **"Juguete en vivo"** lee el
-Arduino **directo desde el navegador**, sin pasar por Flask.
-
 ## 2. Archivos en la raíz
 
 | Archivo | Qué es |
-|---|---|
-| `README.md` | Este documento — la referencia principal del proyecto. |
-| `LICENSE` | Licencia MIT del repositorio. |
-| `propuesta-bluba-ml.html` | El front-end completo: la propuesta navegable más tres piezas interactivas (demo de predicción, confirmación de resultado real, y alertas en vivo del juguete). Se abre directo en el navegador, sin build. Detalle en §3. |
+| `propuesta-bluba-ml.html` | El front-end completo: la propuesta navegable más tres piezas interactivas (demo de predicción, confirmación de resultado real, y alertas en vivo del juguete).
 
 ## 3. `propuesta-bluba-ml.html` — secciones
-
-En orden: **Hero**, **Organizadores**, **`#desafio`**, **`#demo`**,
-**`#confirmar`** (nueva), **`#juguete`**, **`#solucion`**, **`#requisitos`**,
-**`#datos`**, **metas de diseño**, **`#etica`**, **footer**.
 
 ### 3.1 `#demo` — predicción + conocimiento del niño/a
 
 - **Formulario de registro** (`#crisis-form`): selector de `usuario_id`
   (`familia_demo_01/02/03` + los 4 casos reales `PAC-001`...`PAC-004`) y el
-  micro-registro diario (sueño, ánimo, apoyo, GI, rutina, desregulaciones
-  **en los últimos 3 días** —número explícito—, alimentación e interacción
-  social, notas libres). `fetch` a `${API_BASE_URL}/api/prediccion`
-  (`API_BASE_URL = 'http://localhost:5000'`, constante al inicio del
-  `<script>`). Devuelve riesgo, probabilidad, confianza, factores y
-  acciones; si el `usuario_id` tiene historial documentado, también
-  "Lo que ya sabemos de este niño/a" (`known_profile`).
-- **Formulario "Agregar un detonante conocido"** (`#form-detonante`, nuevo):
-  siempre visible, independiente de si ya se predijo. Envía
-  `POST /api/detonantes/<usuario_id>` con tipo de evento, intensidad,
-  detonante, estrategia usada y resultado. Funciona para **cualquier**
-  `usuario_id` — incluidas las familias sintéticas, no solo los 4 casos
-  reales — y el niño/a seleccionado se toma del select de arriba. La
-  respuesta actualiza en vivo el bloque "Lo que ya sabemos de este niño/a".
+  registro diario (sueño, ánimo, apoyo, GI, rutina, desregulaciones
+  en los últimos 3 días, alimentación e interacción
+  social, notas libres). Devuelve riesgo, probabilidad, confianza, factores y
+  acciones; si el usuario tiene historial documentado, también lo que ya sabemos de este niño/a.
+  
+- **Formulario "Agregar un detonante conocido"**:
+  siempre visible, independiente de si ya se predijo. Envía con tipo de evento, intensidad,
+  detonante, estrategia usada y resultado.
 
 ### 3.2 `#confirmar` — cierra el ciclo sintético → real (nueva)
 
-Formulario (`#form-confirmar`): elige `usuario_id` + fecha de un día que
-ya se registró desde `#demo`, y confirma con un radio button si hubo o no
-una crisis real ese día. Envía `POST /api/confirmar`. Ver §4.6 para por
-qué existe esto y qué resuelve exactamente.
-
-### 3.3 `#juguete` — Web Serial, no usa el backend
-
-Botón "Conectar juguete" → `navigator.serial.requestPort()`: lee línea por
-línea lo que transmite `sketch_bluba_original.ino` (USB o el COM virtual
-del HC-06 pareado) y muestra un banner ante `"¡ALERTA! ..."`. No llama a
-Flask — el firmware sigue siendo el original, sin calibración por niño/a.
-Solo Chrome/Edge de escritorio.
+Formulario elige un usuario y la fecha de un día que
+ya se registró, y confirma si hubo o no
+una crisis real ese día. 
 
 ## 4. Carpeta `backend/`
 
@@ -112,9 +49,8 @@ python app.py              # API en http://localhost:5000
 
 | Archivo | Rol en el esquema general |
 |---|---|
-| `requirements.txt` | Dependencias del servidor: `flask`, `flask-cors`, `pandas`, `scikit-learn`, `numpy`. |
-| `requirements-bridge.txt` | Dependencias (`pyserial`, `requests`) para un script puente Bluetooth que **no está en este repo** — ver §4.7. |
-| `README.md` | Apunta a este documento (raíz) para no duplicar información. |
+| `requirements.txt` | Dependencias de los scripts
+| `requirements-bridge.txt` | Dependencias para un script puente Bluetooth 
 | `seed_dataset.py` | Genera `base_bluba.csv`: 50 usuarios sintéticos × 30 días, con una fórmula de riesgo que produce la etiqueta sintética `crisis_24h`. Se corre una vez; después `app.py` agrega filas reales de uso. |
 | `base_bluba.csv` | La "base de datos": `usuario_id, fecha, horas_sueno, calidad_sueno, estado_basal, nivel_apoyo, salud_gi, cambio_rutina, desregulaciones_previas, alimentacion, interaccion_social, notas, crisis_24h`. Los registros nuevos guardan `crisis_24h` vacío hasta que se confirma (§4.6). |
 | `personalizacion.py` | Módulo compartido: baseline (media/std) por id con *shrinkage* hacia la población, y z-scores. Lo reutilizan `modelo.py` y `sensores.py`. |
@@ -182,28 +118,3 @@ entrena con cualquier fila con `crisis_24h` no vacío, sea sintética o
 real, **sin que haya sido necesario modificar `modelo.py`**: a medida que
 las familias confirman más días, la base de entrenamiento pasa a ser una
 mezcla creciente de sintético + real, sin un cambio brusco de enfoque.
-
-### 4.7 Lo que quedó pendiente / inconsistente
-
-- **El juguete sensorial personalizado no está conectado de punta a
-  punta.** `sensores.py` y sus 3 endpoints siguen en el código y
-  funcionan si se llaman directo, pero el script puente que los
-  alimentaría automáticamente no está en este repo, y el firmware
-  presente tiene umbral fijo. Hoy el juguete solo se usa de la forma
-  simple: alertas en vivo por Web Serial, sin personalización.
-- **`requirements-bridge.txt`** no tiene ningún script que lo use todavía.
-
-### 4.8 Limitaciones conocidas (para defender ante el jurado)
-
-- El baseline de personalización usa todo el historial disponible de un
-  usuario, no solo los días anteriores al registro evaluado (leve fuga de
-  información). Para producción conviene una versión expansiva/rolling.
-- El modelo se reentrena completo cada vez que cambia el número de filas
-  del CSV; con un dataset más grande convendría cachear y reentrenar bajo
-  demanda.
-- Los detonantes/estrategias reales del concurso solo cubren 4 niños con
-  7 eventos — un complemento puntual, que ahora cualquier familia puede
-  ir ampliando por su cuenta desde el HTML.
-- La confirmación de resultado real (§4.6) depende de que la familia
-  efectivamente vuelva a confirmar — si nadie confirma, el modelo sigue
-  entrenando 100% con datos sintéticos indefinidamente.

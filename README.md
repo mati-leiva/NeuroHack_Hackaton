@@ -12,7 +12,7 @@ proyecto.
 
 | Archivo | Qué es |
 | `propuesta-bluba-ml.html` | El front-end completo: la propuesta navegable más tres piezas interactivas (demo de predicción, confirmación de resultado real, y alertas en vivo del juguete).
-
+| `backend` | El back-end completo, posee los archivos de Machine Learning y la conección con el dispositivo bluetooth.
 ## 3. `propuesta-bluba-ml.html` — secciones
 
 ### 3.1 predicción + conocimiento del niño/a

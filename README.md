@@ -63,24 +63,13 @@ python app.py              # API en http://localhost:5000
 | `data/eventos_registrados.csv` | Se crea automáticamente la primera vez que alguien agrega un detonante desde el HTML. Aquí viven los eventos nuevos, separados del CSV original del concurso. |
 | `sensores_bluba.csv` | Log crudo de eventos del juguete (`sensores.py`); vacío hasta que algo llame a `registrar_evento`. |
 
-### 4.3 Endpoints de la API
 
-| Endpoint | Qué hace |
-|---|---|---|
-| `GET /api/salud` | Chequeo simple |
-| `POST /api/prediccion` | Guarda el registro del día y devuelve la predicción | 
-| `GET /api/historial/<usuario_id>` | Últimos 10 registros de un usuario |
-| `GET /api/detonantes/<usuario_id>` | Devuelve lo que se sabe de ese niño/a (concurso + agregado) |
-| `POST /api/detonantes/<usuario_id>` | Agrega un nuevo detonante/estrategia para ese niño/a |
-| `POST /api/confirmar` | Confirma el desenlace real de un día ya registrado, reemplazando el `crisis_24h` vacío por un 0/1 |
-| `POST /api/sensor/evento`, `GET /api/sensor/umbral/<id>`, `GET /api/sensor/resumen/<id>` | Delegan en `sensores.py` |
-
-### 4.4 Personalización por niño/a
+### 4.3 Personalización por niño/a
 
 En vez de un modelo (o firmware) distinto por niño/a, se personaliza el
 input: cada valor se compara contra el propio historial del niño/a.
 
-### 4.5 Detonantes y estrategias — reales + los que agregue la familia
+### 4.4 Detonantes y estrategias — reales + los que agregue la familia
 
 `detonantes.py` combina dos fuentes: los 7 eventos reales del concurso
 (4 niños) y cualquier evento nuevo agregado desde `#demo`, para cualquier

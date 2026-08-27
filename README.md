@@ -65,10 +65,10 @@ python app.py              # API en http://localhost:5000
 
 ### 4.3 Endpoints de la API
 
-| Endpoint | Qué hace | Quién lo llama |
+| Endpoint | Qué hace |
 |---|---|---|
-| `GET /api/salud` | Chequeo simple | manual |
-| `POST /api/prediccion` | Guarda el registro del día y devuelve la predicción | sección `#demo` |
+| `GET /api/salud` | Chequeo simple |
+| `POST /api/prediccion` | Guarda el registro del día y devuelve la predicción | 
 | `GET /api/historial/<usuario_id>` | Últimos 10 registros de un usuario |
 | `GET /api/detonantes/<usuario_id>` | Devuelve lo que se sabe de ese niño/a (concurso + agregado) |
 | `POST /api/detonantes/<usuario_id>` | Agrega un nuevo detonante/estrategia para ese niño/a |
